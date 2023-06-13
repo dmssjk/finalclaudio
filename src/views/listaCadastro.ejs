@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Funcionários</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+
+  <body>
+    <%- include('partials/navbar') %>
+
+    <div class="container">
+      <h1>Funcionários</h1>
+
+      <div class="lista">
+        <table>
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Nome</th>
+              <th>Categoria</th>
+              <th>Turno</th>
+              <th>Horas Trabalhadas</th>
+              <th>Salario Inicial</th>
+              <th>Valor Hora</th>
+              <th>Auxílio-Alimentação</th>
+              <th>Salario Final</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% funcionarios.forEach(function(funcionario) { %>
+            <tr>
+              <td><%= funcionario.id %></td>
+              <td><%= funcionario.nome %></td>
+              <td>
+                <% if (funcionario.categoriaId===1) { %> Gerente <% } else { %>
+                Funcionário <% } %>
+              </td>
+              <td>
+                <% if (funcionario.turnoId===1) { %> Matutino <% } else if
+                (funcionario.turnoId===2) { %> Vespertino <% } else { %> Noturno
+                <% } %>
+              </td>
+              <td><%= funcionario.horasTrabalhadas %></td>
+              <td>R$ <%= funcionario.salarioInicial %>,00</td>
+              <td>R$ <%= funcionario.valorHora %>,00</td>
+              <td>
+                <% if (funcionario.salarioInicial <=800) { %> R$ <%=
+                funcionario.salarioInicial * 0.25 %>,00 <% } else if
+                (funcionario.salarioInicial> 800 && funcionario.salarioInicial
+                <= 1200) { %> R$ <%= funcionario.salarioInicial * 0.20 %>,00 <%
+                } else { %> R$ <%= funcionario.salarioInicial * 0.15 %>,00 <% }
+                %>
+              </td>
+              <td>
+                <% if (funcionario.salarioInicial <=800) { %> R$ <%=
+                funcionario.salarioInicial + (funcionario.salarioInicial * 0.25)
+                %>,00 <% } else if (funcionario.salarioInicial> 800 &&
+                funcionario.salarioInicial <= 1200) { %> R$ <%=
+                funcionario.salarioInicial + (funcionario.salarioInicial * 0.20)
+                %>,00 <% } else { %> R$ <%= funcionario.salarioInicial +
+                (funcionario.salarioInicial * 0.15) %>,00 <% } %>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
